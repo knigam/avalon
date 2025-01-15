@@ -1,4 +1,4 @@
-import { GameRules, Player, RoleName } from "role-player/src";
+import { GameRules, Player, RoleName } from "@knigam/role-player";
 import { shuffle } from "./helper";
 
 const MIN_PLAYERS = 5;

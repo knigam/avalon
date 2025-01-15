@@ -1,4 +1,4 @@
-import { Player, RoleName } from "role-player/src";
+import { Player, RoleName } from "@knigam/role-player";
 import { avalonRules } from "../src/avalonRules";
 
 test("assignRoles", () => {

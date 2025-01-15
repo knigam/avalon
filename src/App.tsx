@@ -1,12 +1,13 @@
-import { useWindowDimensions } from "role-player/src/helpers/window";
+import { useWindowDimensions } from "@knigam/role-player";
 import "./App.css";
+import '@knigam/role-player/dist/index.css'
 
 import {
   FirebaseDatastore,
   GameEngine,
   RolePlayerGame,
   Title,
-} from "role-player/src";
+} from "@knigam/role-player";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { avalonRules } from "./avalonRules";
 
