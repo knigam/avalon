@@ -7,20 +7,20 @@ const MAX_PLAYERS = 10;
 const LSOA = "Loyal Servant of Arthur";
 const MERLIN = "Merlin";
 const PERCIVAL = "Percival";
-const MORDRID = "Mordrid";
-const MINION = "Minion of Mordrid";
+const MORDRED = "Mordred";
+const MINION = "Minion of Mordred";
 const MORGANA = "Morgana";
 const OBERON = "Oberon";
 const ASSASSIN = "Assassin";
 
-const evilRoles = new Set([MORDRID, MINION, MORGANA, OBERON, ASSASSIN]);
+const evilRoles = new Set([MORDRED, MINION, MORGANA, OBERON, ASSASSIN]);
 
 const validRoles = new Set([
   MERLIN,
   PERCIVAL,
   MORGANA,
   ASSASSIN,
-  MORDRID,
+  MORDRED,
   OBERON,
 ]);
 
@@ -72,8 +72,8 @@ function generateMessageForRole(role: RoleName, players: Player[]): string {
     case PERCIVAL: {
       return generateMessageForPercival(players);
     }
-    case MORDRID: {
-      return generateMessageForEvilPlayer(MORDRID, players);
+    case MORDRED: {
+      return generateMessageForEvilPlayer(MORDRED, players);
     }
     case MORGANA: {
       return generateMessageForEvilPlayer(MORGANA, players);
@@ -98,13 +98,13 @@ function generateMessageForServant(): string {
 }
 
 function generateMessageForMerlin(players: Player[]): string {
-  const evilPlayersWithoutMordrid = players.filter(
-    (p) => p.role && evilRoles.has(p.role) && p.role !== MORDRID
+  const evilPlayersWithoutMordred = players.filter(
+    (p) => p.role && evilRoles.has(p.role) && p.role !== MORDRED
   );
 
   return `
   You are ${MERLIN}\n
-  ${evilPlayersWithoutMordrid.map((p) => `${p.name} is evil`).join("\n")}
+  ${evilPlayersWithoutMordred.map((p) => `${p.name} is evil`).join("\n")}
   `;
 }
 
