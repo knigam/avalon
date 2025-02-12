@@ -1,4 +1,4 @@
-import { Player, RoleName } from "@knigam/role-player";
+import { GameState, Player, RoleName } from "@knigam/role-player";
 import { avalonRules } from "../src/avalonRules";
 
 test("assignRoles", () => {
@@ -7,7 +7,7 @@ test("assignRoles", () => {
     name: `Player ${i}`,
   }));
   const roles: RoleName[] = [];
-  const playersWithRoles = avalonRules.assignRoles(players, roles);
+  const playersWithRoles = avalonRules.assignRoles({ players } as GameState, roles);
   playersWithRoles.forEach((p) => {
     expect(p.role).toBeTruthy();
   });

@@ -1,4 +1,4 @@
-import { GameRules, Player, RoleName } from "@knigam/role-player";
+import { GameRules, GameState, Player, RoleName } from "@knigam/role-player";
 import { shuffle } from "./helper";
 
 const MIN_PLAYERS = 5;
@@ -15,14 +15,7 @@ const ASSASSIN = "Assassin";
 
 const evilRoles = new Set([MORDRED, MINION, MORGANA, OBERON, ASSASSIN]);
 
-const validRoles = new Set([
-  MERLIN,
-  PERCIVAL,
-  MORGANA,
-  ASSASSIN,
-  MORDRED,
-  OBERON,
-]);
+const validRoles = new Set([MERLIN, PERCIVAL, MORGANA, ASSASSIN, MORDRED, OBERON]);
 
 function getNumEvilForNumPlayers(numPlayers: number): number {
   if ([5, 6].includes(numPlayers)) {
@@ -37,7 +30,8 @@ function getNumEvilForNumPlayers(numPlayers: number): number {
   throw new Error("Invalid number of players");
 }
 
-function assignRoles(players: Player[], roles: RoleName[]): Player[] {
+function assignRoles(state: GameState, roles: RoleName[]): Player[] {
+  const { players } = state;
   const numEvilRoles = roles.filter((r) => evilRoles.has(r)).length;
 
   // Make sure there are enough minions
@@ -98,9 +92,7 @@ function generateMessageForServant(): string {
 }
 
 function generateMessageForMerlin(players: Player[]): string {
-  const evilPlayersWithoutMordred = players.filter(
-    (p) => p.role && evilRoles.has(p.role) && p.role !== MORDRED
-  );
+  const evilPlayersWithoutMordred = players.filter((p) => p.role && evilRoles.has(p.role) && p.role !== MORDRED);
 
   return `
   You are ${MERLIN}\n
@@ -109,28 +101,17 @@ function generateMessageForMerlin(players: Player[]): string {
 }
 
 function generateMessageForPercival(players: Player[]): string {
-  const merlinOrMorgana = players.filter(
-    (p) => p.role === MERLIN || p.role === MORGANA
-  );
+  const merlinOrMorgana = players.filter((p) => p.role === MERLIN || p.role === MORGANA);
   return `
   You are ${PERCIVAL}\n
-  ${merlinOrMorgana
-    .map((p) => `${p.name} is ${MERLIN} or ${MORGANA}`)
-    .join("\n")}
+  ${merlinOrMorgana.map((p) => `${p.name} is ${MERLIN} or ${MORGANA}`).join("\n")}
   `;
 }
 
-function generateMessageForEvilPlayer(
-  role: RoleName,
-  players: Player[]
-): string {
-  const evilPlayers = players.filter(
-    (p) => p.role && evilRoles.has(p.role) && p.role !== OBERON
-  );
+function generateMessageForEvilPlayer(role: RoleName, players: Player[]): string {
+  const evilPlayers = players.filter((p) => p.role && evilRoles.has(p.role) && p.role !== OBERON);
 
-  return `You are ${role}\n${evilPlayers
-    .map((p) => `${p.name} is evil`)
-    .join("\n")}`;
+  return `You are ${role}\n${evilPlayers.map((p) => `${p.name} is evil`).join("\n")}`;
 }
 
 export const avalonRules: GameRules = {
