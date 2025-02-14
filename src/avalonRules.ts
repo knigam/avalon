@@ -32,22 +32,23 @@ function getNumEvilForNumPlayers(numPlayers: number): number {
 
 function assignRoles(state: GameState, roles: RoleName[]): Player[] {
   const { players } = state;
-  const numEvilRoles = roles.filter((r) => evilRoles.has(r)).length;
+  const allRoles = [...roles]; // Create a copy since we will push more roles into it
+  const numEvilRoles = allRoles.filter((r) => evilRoles.has(r)).length;
 
   // Make sure there are enough minions
   const requiredEvil = getNumEvilForNumPlayers(players.length);
   for (let i = 0; i < requiredEvil - numEvilRoles; i++) {
-    roles.push(MINION);
+    allRoles.push(MINION);
   }
 
   // Add loyal servants to ensure number of roles matches number of players
-  const requiredGood = players.length - roles.length;
+  const requiredGood = players.length - allRoles.length;
   for (let i = 0; i < requiredGood; i++) {
-    roles.push(LSOA);
+    allRoles.push(LSOA);
   }
 
   const shuffledPlayers = shuffle(players);
-  const shuffledRoles = shuffle(roles);
+  const shuffledRoles = shuffle(allRoles);
 
   return shuffledPlayers.map((p, i) => ({
     ...p,
