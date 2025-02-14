@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@knigam/role-player": "^1.0.2",
+    "@knigam/role-player": "^1.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.28.1"
